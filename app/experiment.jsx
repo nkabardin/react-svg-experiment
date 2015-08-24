@@ -77,6 +77,10 @@ export default class Experiment extends React.Component {
   }
 
   _handleClick = (event) => {
+    if (this.dragging !== null) {
+      return
+    }
+
     const x = event.nativeEvent.clientX
     const y = event.nativeEvent.clientY
 
@@ -90,7 +94,8 @@ export default class Experiment extends React.Component {
   }
 
   _stopDrag = (event) => {
-    this.dragging = null
+    // to ensure that dragging will be over only after all handlers are executed
+    setTimeout(() => {this.dragging = null}, 0)
   }
 
   _drag = (event) => {
