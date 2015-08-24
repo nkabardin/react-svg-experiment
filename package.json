@@ -1,0 +1,51 @@
+{
+  "name": "react-svg-experiment",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "normalize.css": "3.0.3",
+    "query-string": "^2.3.0",
+    "react": "0.13.3"
+  },
+  "devDependencies": {
+    "autoprefixer-core": "^5.2.0",
+    "babel": "^5.6.14",
+    "babel-eslint": "^4.0.5",
+    "babel-loader": "^5.1.4",
+    "babel-plugin-espower": "^1.0.0",
+    "classnames": "^2.1.3",
+    "css-loader": "^0.15.2",
+    "eslint": "^1.0.0",
+    "eslint-config-toptal": "0.1.0",
+    "eslint-plugin-react": "^3.2.0",
+    "expose-loader": "^0.7.0",
+    "express": "^4.12.4",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "karma": "^0.12.2",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-mocha": "^0.2.0",
+    "karma-phantomjs2-launcher": "^0.1.6",
+    "karma-sourcemap-loader": "^0.3.5",
+    "karma-webpack": "^1.5.1",
+    "lodash": "^3.10.0",
+    "mocha": "^2.2.5",
+    "node-sass": "^3.2.0",
+    "postcss": "^4.1.16",
+    "postcss-loader": "^0.5.1",
+    "power-assert": "^0.11.0",
+    "sass-loader": "^1.0.2",
+    "script-loader": "^0.6.1",
+    "sinon": "^1.15.4",
+    "source-map-support": "^0.3.2",
+    "style-loader": "^0.12.3",
+    "webpack": "^1.10.1",
+    "webpack-dev-middleware": "^1.0.11"
+  },
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack --watch",
+    "karma": "karma start",
+    "lint": "eslint app/ --ext .js,.jsx"
+  }
+}

@@ -1,0 +1,39 @@
+// color scheme: https://color.adobe.com/Vitamin-C-color-theme-492199/
+$color0: #004358
+$color1: #1F8A70
+
+.experiment
+  background-color: $color0
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+
+  circle
+    cursor: pointer
+
+  .menu
+    position: absolute
+    top: 30px
+    left: 30px
+    user-select: none
+
+    .logo
+      display: inline-block
+      color: white
+      opacity: 0.7
+      font-size: 20px
+
+    button
+      display: inline-block
+      vertical-align: top
+      margin-top: -9px
+      margin-left: 15px
+      background: $color1
+      color: white
+      font-size: 12px
+      padding: 10px
+
+      &:focus
+        outline:0
