@@ -1,12 +1,12 @@
 import React from 'react'
 import './experiment.sass'
+import Vector from './math_utils/vector'
+import parallelogramArea from './math_utils/parallelogram_area'
 
 // color scheme: https://color.adobe.com/Vitamin-C-color-theme-492199/
-const COLORS = [
-  '#FD7400',
-  '#FFE11A',
-  '#BEDB39'
-]
+const POINT_COLOR = '#DB4831'
+const PARALLELOGRAM_COLOR = '#3E606F'
+const CIRCLE_COLOR = '#FFE11A'
 
 const DEFAULT_STATE = () => {
   return {
@@ -44,6 +44,8 @@ export default class Experiment extends React.Component {
           onMouseLeave={this._stopDrag}
           onClick={this._handleClick}
         >
+          {this._renderParallelogram()}
+          {this._renderCircle()}
           {this._renderPoints()}
         </svg>
         <div className='menu'>
@@ -62,18 +64,61 @@ export default class Experiment extends React.Component {
     window.localStorage.setItem('experiment', JSON.stringify(nextState))
   }
 
+  _points() {
+    const points = this.state.points.slice()
+
+    if (points.length === 3) {
+      const vector = Vector.fromTwoPoints(points[0], points[1])
+      points.push(Vector.fromTwoPoints(vector, points[2]).toPoint())
+    }
+
+    return points
+  }
+
   _renderPoints = () => {
-    return this.state.points.map((point, index) => {
+    return this._points().map((point, index) => {
+      const fillColor = index < 3 ? POINT_COLOR : PARALLELOGRAM_COLOR
       return <circle
-        draggable='true'
         onMouseDown={this._startDrag.bind(this, index)}
         cx={point.x}
         cy={point.y}
         r={RADIUS}
-        fill={COLORS[index]}
+        fill={fillColor}
         key={index}
       />
     })
+  }
+
+  _renderParallelogram = () => {
+    if (this.state.points.length === 3) {
+      const coords = this._points().map((point) => {return `${point.x},${point.y}`})
+      return <polygon points={coords.join(',')} stroke={PARALLELOGRAM_COLOR} fill='none' />
+    }
+  }
+
+  _circleRadius(points) {
+    const area = parallelogramArea(points)
+    return Math.sqrt(area / Math.PI)
+  }
+
+  _renderCircle = () => {
+    if (this.state.points.length === 3) {
+      const points = this._points()
+      const sideA = Vector.fromTwoPoints(points[0], points[1])
+      const sideB = Vector.fromTwoPoints(points[1], points[2])
+      const diagonal = sideA.sumWithVector(sideB)
+      const circleCenter = {
+        x: points[0].x + diagonal.x / 2,
+        y: points[0].y + diagonal.y / 2
+      }
+      return <circle
+        cx={circleCenter.x}
+        cy={circleCenter.y}
+        r={this._circleRadius(points)}
+        stroke={CIRCLE_COLOR}
+        fill='none'
+      />
+    }
   }
 
   _handleClick = (event) => {
