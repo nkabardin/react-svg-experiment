@@ -2,6 +2,7 @@ import React from 'react'
 import './experiment.sass'
 import Vector from './math_utils/vector'
 import InfoWidget from './info_widget'
+import About from './about'
 import parallelogramArea from './math_utils/parallelogram_area'
 
 // color scheme: https://color.adobe.com/Vitamin-C-color-theme-492199/
@@ -11,7 +12,8 @@ const CIRCLE_COLOR = '#FFE11A'
 
 const DEFAULT_STATE = () => {
   return {
-    points: []
+    points: [],
+    aboutActive: false
   }
 }
 
@@ -59,8 +61,12 @@ export default class Experiment extends React.Component {
           <button onClick={this._reset}>
             Reset
           </button>
+          <button onClick={this._showAbout}>
+            About
+          </button>
         </div>
         {this._renderInfoWidget(points, area)}
+        {this._renderAbout()}
       </div>
     )
   }
@@ -130,6 +136,12 @@ export default class Experiment extends React.Component {
     return <InfoWidget points={points} area={area} />
   }
 
+  _renderAbout() {
+    if (this.state.aboutActive) {
+      return <About onClose={this._hideAbout} />
+    }
+  }
+
   _handleClick = (event) => {
     if (this.dragging !== null) {
       return
@@ -178,5 +190,13 @@ export default class Experiment extends React.Component {
 
   _reset = () => {
     this.setState(DEFAULT_STATE())
+  }
+
+  _showAbout = () => {
+    this.setState({aboutActive: true})
+  }
+
+  _hideAbout = () => {
+    this.setState({aboutActive: false})
   }
 }

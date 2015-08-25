@@ -2,7 +2,6 @@ import React from 'react'
 import './info_widget.sass'
 
 export default class InfoWidget extends React.Component {
-
   render() {
     return <div className='info_widget'>{this._getMessage()}</div>
   }
