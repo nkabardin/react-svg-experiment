@@ -5,7 +5,7 @@ module.exports = function(config) {
     frameworks: ['mocha'],
     files: [
       'node_modules/babel-core/browser-polyfill.js',
-      'app/front/**/*_spec.js{,x}'
+      'app/**/*_spec.js{,x}'
     ],
     preprocessors: {
       '**/*.js{,x}': ['webpack', 'sourcemap']

@@ -35,7 +35,11 @@ const config = {
         test: /\.css$/,
         loader:
             'style!css!postcss'
-      }
+      },
+      {
+        test: /\.json?$/,
+        loader: 'json'
+      },
     ],
     noParse: isTest ? [
       /babel-core\/browser-polyfill\.js/,
