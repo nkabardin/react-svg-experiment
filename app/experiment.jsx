@@ -1,6 +1,7 @@
 import React from 'react'
 import './experiment.sass'
 import Vector from './math_utils/vector'
+import InfoWidget from './info_widget'
 import parallelogramArea from './math_utils/parallelogram_area'
 
 // color scheme: https://color.adobe.com/Vitamin-C-color-theme-492199/
@@ -34,6 +35,9 @@ export default class Experiment extends React.Component {
   }
 
   render() {
+    const points = this._points()
+    const area = (points.length === 4) ? parallelogramArea(points) : 0
+
     return (
       <div className='experiment'>
         <svg
@@ -44,9 +48,9 @@ export default class Experiment extends React.Component {
           onMouseLeave={this._stopDrag}
           onClick={this._handleClick}
         >
-          {this._renderParallelogram()}
-          {this._renderCircle()}
-          {this._renderPoints()}
+          {this._renderParallelogram(points)}
+          {this._renderCircle(points, area)}
+          {this._renderPoints(points)}
         </svg>
         <div className='menu'>
           <div className='logo'>
@@ -56,6 +60,7 @@ export default class Experiment extends React.Component {
             Abort
           </button>
         </div>
+        {this._renderInfoWidget(points, area)}
       </div>
     )
   }
@@ -75,35 +80,35 @@ export default class Experiment extends React.Component {
     return points
   }
 
-  _renderPoints = () => {
-    return this._points().map((point, index) => {
-      const fillColor = index < 3 ? POINT_COLOR : PARALLELOGRAM_COLOR
+  _renderPoints = (points) => {
+    return points.map((point, index) => {
+      const isActive = index < 3
+
       return <circle
         onMouseDown={this._startDrag.bind(this, index)}
+        className={isActive ? 'is-active' : ''}
         cx={point.x}
         cy={point.y}
         r={RADIUS}
-        fill={fillColor}
+        fill={isActive ? POINT_COLOR : PARALLELOGRAM_COLOR}
         key={index}
       />
     })
   }
 
-  _renderParallelogram = () => {
-    if (this.state.points.length === 3) {
-      const coords = this._points().map((point) => {return `${point.x},${point.y}`})
+  _renderParallelogram = (points) => {
+    if (points.length === 4) {
+      const coords = points.map((point) => {return `${point.x},${point.y}`})
       return <polygon points={coords.join(',')} stroke={PARALLELOGRAM_COLOR} fill='none' />
     }
   }
 
-  _circleRadius(points) {
-    const area = parallelogramArea(points)
+  _circleRadius(area) {
     return Math.sqrt(area / Math.PI)
   }
 
-  _renderCircle = () => {
-    if (this.state.points.length === 3) {
-      const points = this._points()
+  _renderCircle = (points, area) => {
+    if (points.length === 4) {
       const sideA = Vector.fromTwoPoints(points[0], points[1])
       const sideB = Vector.fromTwoPoints(points[1], points[2])
       const diagonal = sideA.sumWithVector(sideB)
@@ -114,11 +119,15 @@ export default class Experiment extends React.Component {
       return <circle
         cx={circleCenter.x}
         cy={circleCenter.y}
-        r={this._circleRadius(points)}
+        r={this._circleRadius(area)}
         stroke={CIRCLE_COLOR}
         fill='none'
       />
     }
+  }
+
+  _renderInfoWidget(points, area) {
+    return <InfoWidget points={points} area={area} />
   }
 
   _handleClick = (event) => {
