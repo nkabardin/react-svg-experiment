@@ -41,8 +41,6 @@ export default class InfoWidget extends React.Component {
           Point 4: {this._formatPoint(this.props.points[3])}<br />
           Area: {Math.round(this.props.area)}
         </div>
-      default:
-        return 'hey jude'
     }
   }
 
