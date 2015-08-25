@@ -57,7 +57,7 @@ export default class Experiment extends React.Component {
             React SVG Experiment
           </div>
           <button onClick={this._reset}>
-            Abort
+            Reset
           </button>
         </div>
         {this._renderInfoWidget(points, area)}
