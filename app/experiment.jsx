@@ -143,15 +143,10 @@ export default class Experiment extends React.Component {
   }
 
   _handleClick = (event) => {
-    if (this.dragging !== null) {
-      return
-    }
-
-    const x = event.nativeEvent.clientX
-    const y = event.nativeEvent.clientY
+    if (this.dragging !== null) { return }
 
     if (this.state.points.length < 3) {
-      this._addPoint(x, y)
+      this._addPoint(event.nativeEvent.clientX, event.nativeEvent.clientY)
     }
   }
 
