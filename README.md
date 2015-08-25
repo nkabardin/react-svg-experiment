@@ -2,9 +2,11 @@
 
 # React SVG Experiment
 
-Just playing around React and SVG.
+This is an experiment to show off the power of React and SVG.
 
-![Screenshot](https://cloud.githubusercontent.com/assets/175438/9481673/fbf2c4b2-4b94-11e5-8b6e-2e0f852d2637.png)
+You can actually [try it](http://nikita.kabardin.com/react-svg-experiment/) on GitHub Pages!
+
+[![Screenshot](https://cloud.githubusercontent.com/assets/175438/9481673/fbf2c4b2-4b94-11e5-8b6e-2e0f852d2637.png)](http://nikita.kabardin.com/react-svg-experiment/)
 
 
 # Build and test
