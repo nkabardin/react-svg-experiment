@@ -156,7 +156,7 @@ export default class Experiment extends React.Component {
 
   _stopDrag = (event) => {
     // to ensure that dragging will be over only after all handlers are executed
-    setTimeout(() => {this.dragging = null}, 0)
+    setTimeout(() => this.dragging = null, 0)
   }
 
   _drag = (event) => {

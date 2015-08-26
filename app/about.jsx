@@ -17,15 +17,9 @@ export default class About extends React.Component {
         <li><a href='http://karma-runner.github.io/'>Karma</a>, <a href='https://mochajs.org/'>Mocha</a> and <a href='https://github.com/power-assert-js/power-assert'>power-assert</a> to develop tests</li>
         <li><a href='https://travis-ci.org/'>Travis</a> to run tests in the cloud</li>
       </ul>
-      <button onClick={this._close}>
+      <button onClick={this.props.onClose}>
         OK!
       </button>
     </div>
-  }
-
-  _close = () => {
-    if (this.props.onClose) {
-      this.props.onClose()
-    }
   }
 }
